@@ -1,106 +1,178 @@
-////////////////////////////////////////////////////
-// Users
-////////////////////////////////////////////////////
+// ===========================================
+// JOB BOARD DATABASE SCHEMA
+// ===========================================
+// This schema supports a job board platform with:
+// - User management (job seekers, founders, admins)
+// - Company and job postings
+// - Application tracking and matching
+// - Communication between users and founders
+// ===========================================
+
+// ===========================================
+// USER MANAGEMENT
+// ===========================================
+
 Table users {
-  id int [pk, increment] 
-  first_name varchar
-  last_name varchar
-  email varchar [unique, not null]
-  password_hash varchar [not null]
-  role varchar // "job_seeker", "founder", "admin"
-  created_at timestamp
-  updated_at timestamp
-}
-
-////////////////////////////////////////////////////
-// Companies
-////////////////////////////////////////////////////
-Table companies {
-  id int [pk, increment]
-  name varchar [not null]
-  logo_url varchar
-  description text
-  stage varchar // e.g. "Seed", "Late Stage"
-  industry varchar
-  created_at timestamp
-  updated_at timestamp
-}
-
-////////////////////////////////////////////////////
-// Founders
-////////////////////////////////////////////////////
-Table founders {
-  id int [pk, increment]
-  user_id int [not null, unique, ref: > users.id] 
-  company_id int [not null, ref: > companies.id]
-  title varchar // "CEO", "Co-Founder"
-  bio text
-  created_at timestamp
-  updated_at timestamp
-}
-
-////////////////////////////////////////////////////
-// Jobs
-////////////////////////////////////////////////////
-Table jobs {
-  id int [pk, increment]
-  company_id int [not null, ref: > companies.id]
-  title varchar [not null] // Product Designer, etc.
-  description text
-  location varchar // Remote, City
-  country varchar
-  job_type varchar // Full-time, Internship, Contract
-  salary_min int
-  salary_max int
-  salary_currency varchar // USD, EUR
-  posted_at timestamp
-  level varchar // Entry Level, New Grad
-  category varchar // Architecture, E-commerce
-  created_at timestamp
-  updated_at timestamp
-}
-
-////////////////////////////////////////////////////
-// Applications
-////////////////////////////////////////////////////
-Table applications {
-  id int [pk, increment]
-  user_id int [not null, ref: > users.id]
-  job_id int [not null, ref: > jobs.id]
-  status varchar // "applied", "interview", "offer", "rejected"
-  applied_at timestamp
-  Note: "Each user can only apply once per job"
+  id int [pk, increment, note: 'Unique user identifier']
+  first_name varchar [note: 'User first name']
+  last_name varchar [note: 'User last name']
+  email varchar [unique, not null, note: 'User email (unique)']
+  password_hash varchar [not null, note: 'Encrypted password']
+  role varchar [note: 'User role: job_seeker, founder, or admin']
+  created_at timestamp [note: 'Account creation date']
+  updated_at timestamp [note: 'Last profile update']
+  
   indexes {
-    (user_id, job_id) [unique]
+    email [unique]
+    role [note: 'For role-based queries']
   }
 }
 
-////////////////////////////////////////////////////
-// Matches
-////////////////////////////////////////////////////
-Table matches {
-  id int [pk, increment]
-  user_id int [not null, ref: > users.id]
-  job_id int [not null, ref: > jobs.id]
-  score int // 0–100
-  is_strong_match boolean
-  created_at timestamp
+// ===========================================
+// COMPANY INFORMATION
+// ===========================================
+
+Table companies {
+  id int [pk, increment, note: 'Unique company identifier']
+  name varchar [not null, note: 'Company name']
+  logo_url varchar [note: 'Company logo image URL']
+  description text [note: 'Company description']
+  stage varchar [note: 'Company stage: Seed, Series A, etc.']
+  industry varchar [note: 'Industry: Tech, Healthcare, etc.']
+  created_at timestamp [note: 'Company registration date']
+  updated_at timestamp [note: 'Last company update']
+  
+  indexes {
+    name [note: 'For company name searches']
+    industry [note: 'For industry filtering']
+    stage [note: 'For stage-based queries']
+  }
 }
 
-////////////////////////////////////////////////////
-// Chats & Messages
-////////////////////////////////////////////////////
+// ===========================================
+// FOUNDER PROFILES
+// ===========================================
+
+Table founders {
+  id int [pk, increment, note: 'Unique founder identifier']
+  user_id int [not null, unique, ref: > users.id, note: 'Links to user account']
+  company_id int [not null, ref: > companies.id, note: 'Links to company']
+  title varchar [note: 'Founder title: CEO, Co-Founder, etc.']
+  bio text [note: 'Founder biography']
+  created_at timestamp [note: 'Founder profile creation']
+  updated_at timestamp [note: 'Last profile update']
+  
+  indexes {
+    user_id [unique, note: 'One founder per user']
+    company_id [note: 'For company-founder queries']
+  }
+}
+
+// ===========================================
+// JOB POSTINGS
+// ===========================================
+
+Table jobs {
+  id int [pk, increment, note: 'Unique job identifier']
+  company_id int [not null, ref: > companies.id, note: 'Company posting the job']
+  title varchar [not null, note: 'Job title: Product Designer, etc.']
+  description text [note: 'Detailed job description']
+  location varchar [note: 'Job location: Remote, City, etc.']
+  country varchar [note: 'Job country']
+  job_type varchar [note: 'Employment type: Full-time, Part-time, etc.']
+  salary_min int [note: 'Minimum salary in cents']
+  salary_max int [note: 'Maximum salary in cents']
+  salary_currency varchar [note: 'Salary currency: USD, EUR, etc.']
+  posted_at timestamp [note: 'When job was posted']
+  level varchar [note: 'Experience level: Entry, Mid, Senior']
+  category varchar [note: 'Job category: Design, Engineering, etc.']
+  created_at timestamp [note: 'Job creation date']
+  updated_at timestamp [note: 'Last job update']
+  
+  indexes {
+    company_id [note: 'For company-job queries']
+    location [note: 'For location-based searches']
+    job_type [note: 'For employment type filtering']
+    level [note: 'For experience level filtering']
+    category [note: 'For category-based searches']
+    posted_at [note: 'For recent job queries']
+  }
+}
+
+// ===========================================
+// JOB APPLICATIONS
+// ===========================================
+
+Table applications {
+  id int [pk, increment, note: 'Unique application identifier']
+  user_id int [not null, ref: > users.id, note: 'User applying for job']
+  job_id int [not null, ref: > jobs.id, note: 'Job being applied to']
+  status varchar [note: 'Application status: applied, interview, offer, rejected']
+  applied_at timestamp [note: 'When application was submitted']
+  
+  indexes {
+    (user_id, job_id) [unique, note: 'Prevent duplicate applications']
+    user_id [note: 'For user application history']
+    job_id [note: 'For job application counts']
+    status [note: 'For status-based queries']
+  }
+}
+
+// ===========================================
+// JOB MATCHING SYSTEM
+// ===========================================
+
+Table matches {
+  id int [pk, increment, note: 'Unique match identifier']
+  user_id int [not null, ref: > users.id, note: 'User being matched']
+  job_id int [not null, ref: > jobs.id, note: 'Job being matched to']
+  score int [note: 'Match score from 0-100']
+  is_strong_match boolean [note: 'Flag for high-quality matches']
+  created_at timestamp [note: 'When match was calculated']
+  
+  indexes {
+    user_id [note: 'For user match queries']
+    job_id [note: 'For job match queries']
+    score [note: 'For score-based sorting']
+    is_strong_match [note: 'For strong match filtering']
+  }
+}
+
+// ===========================================
+// COMMUNICATION SYSTEM
+// ===========================================
+
 Table chats {
-  id int [pk, increment]
-  user_id int [not null, ref: > users.id]
-  founder_id int [not null, ref: > founders.id]
-  created_at timestamp
+  id int [pk, increment, note: 'Unique chat session identifier']
+  user_id int [not null, ref: > users.id, note: 'Job seeker in chat']
+  founder_id int [not null, ref: > founders.id, note: 'Founder in chat']
+  created_at timestamp [note: 'When chat was started']
+  
+  indexes {
+    user_id [note: 'For user chat history']
+    founder_id [note: 'For founder chat history']
+  }
 }
 
 Table messages {
-  id int [pk, increment]
-  chat_id int [not null, ref: > chats.id]
-  sender_id int [not null, ref: > users.id] // or founder
-  message text
-  sent_at timestamp
+  id int [pk, increment, note: 'Unique message identifier']
+  chat_id int [not null, ref: > chats.id, note: 'Chat this message belongs to']
+  sender_id int [not null, ref: > users.id, note: 'User or founder who sent message']
+  message text [note: 'Message content']
+  sent_at timestamp [note: 'When message was sent']
+  
+  indexes {
+    chat_id [note: 'For chat message queries']
+    sender_id [note: 'For sender message history']
+    sent_at [note: 'For chronological ordering']
+  }
 }
+
+// ===========================================
+// RELATIONSHIP SUMMARY
+// ===========================================
+// Users can have multiple applications and matches
+// Companies can have multiple founders and jobs
+// Jobs can have multiple applications and matches
+// Each user can only apply once per job
+// Chats connect users and founders for communication

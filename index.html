@@ -19,71 +19,125 @@
         <h1 class="text-2xl font-bold mb-4">Our Popular Jobs</h1>
         <p class="text-gray-600 mb-6">Be one of the first 10 to apply</p>
         
-        <div class="grid gap-4">
-            <!-- Job Card 1 -->
-            <div class="shadow-md rounded-2xl border p-4 flex justify-between bg-white">
-                <div class="flex gap-4 w-full">
-                    <img src="https://via.placeholder.com/40" alt="logo" class="w-12 h-12 rounded" />
-                    <div class="flex-1">
-                        <p class="text-sm text-green-600">2 hours ago</p>
-                        <h2 class="text-lg font-semibold text-orange-600">Product Designer</h2>
-                        <p class="text-gray-600 text-sm mb-2">New Grad, Entry Level</p>
-                        <p class="text-gray-800 text-sm">
-                            Remote - US · Full-time · $120K - $135K/yr
-                        </p>
-                        <p class="text-gray-500 text-xs">Architecture · E-Commerce</p>
-                        <p class="text-gray-700 text-sm mt-2 line-clamp-2">
-                            The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-end gap-2 min-w-[160px]">
-                        <span class="font-semibold text-blue-600">85% MATCH</span>
-                        <button class="px-4 py-2 rounded-lg font-medium transition-colors bg-orange-500 hover:bg-orange-600 w-full text-white">
-                            Apply Now
-                        </button>
-                        <div class="bg-blue-50 p-2 rounded-xl text-center w-full">
-                            <p class="text-sm font-medium">Alex Chen</p>
-                            <p class="text-xs text-gray-500">Co-Founder & CEO at Hive Data</p>
-                            <button class="mt-2 px-4 py-2 rounded-lg font-medium transition-colors bg-orange-400 hover:bg-orange-500 w-full text-white">
-                                Let's Chat
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Job Card 2 -->
-            <div class="shadow-md rounded-2xl border p-4 flex justify-between bg-white">
-                <div class="flex gap-4 w-full">
-                    <img src="https://via.placeholder.com/40" alt="logo" class="w-12 h-12 rounded" />
-                    <div class="flex-1">
-                        <p class="text-sm text-green-600">2 hours ago</p>
-                        <h2 class="text-lg font-semibold text-orange-600">Product Designer</h2>
-                        <p class="text-gray-600 text-sm mb-2">New Grad, Entry Level</p>
-                        <p class="text-gray-800 text-sm">
-                            Remote - US · Full-time · $120K - $135K/yr
-                        </p>
-                        <p class="text-gray-500 text-xs">Architecture · E-Commerce</p>
-                        <p class="text-gray-700 text-sm mt-2 line-clamp-2">
-                            The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-end gap-2 min-w-[160px]">
-                        <span class="font-semibold text-blue-600">92% MATCH</span>
-                        <button class="px-4 py-2 rounded-lg font-medium transition-colors bg-orange-500 hover:bg-orange-600 w-full text-white">
-                            Apply Now
-                        </button>
-                        <div class="bg-blue-50 p-2 rounded-xl text-center w-full">
-                            <p class="text-sm font-medium">Alex Chen</p>
-                            <p class="text-xs text-gray-500">Co-Founder & CEO at Hive Data</p>
-                            <button class="mt-2 px-4 py-2 rounded-lg font-medium transition-colors bg-orange-400 hover:bg-orange-500 w-full text-white">
-                                Let's Chat
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="jobs-container" class="grid gap-4">
+            <!-- Jobs will be generated here by JavaScript -->
         </div>
     </div>
+
+    <script>
+        // Job data - easily modifiable
+        const jobData = [
+            {
+                id: 1,
+                title: "Product Designer",
+                company: "Hive Data",
+                logo: "https://via.placeholder.com/40",
+                location: "Remote - US",
+                jobType: "Full-time",
+                salaryMin: 120000,
+                salaryMax: 135000,
+                level: "New Grad, Entry Level",
+                category: "Architecture · E-Commerce",
+                postedAt: "2 hours ago",
+                description: "The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.",
+                matchScore: 85,
+                founder: {
+                    name: "Alex Chen",
+                    bio: "Co-Founder & CEO at Hive Data"
+                }
+            },
+            {
+                id: 2,
+                title: "Product Designer",
+                company: "Hive Data",
+                logo: "https://via.placeholder.com/40",
+                location: "Remote - US",
+                jobType: "Full-time",
+                salaryMin: 120000,
+                salaryMax: 135000,
+                level: "New Grad, Entry Level",
+                category: "Architecture · E-Commerce",
+                postedAt: "2 hours ago",
+                description: "The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.",
+                matchScore: 92,
+                founder: {
+                    name: "Alex Chen",
+                    bio: "Co-Founder & CEO at Hive Data"
+                }
+            },
+            {
+                id: 3,
+                title: "Frontend Developer",
+                company: "TechFlow",
+                logo: "https://via.placeholder.com/40",
+                location: "San Francisco, CA",
+                jobType: "Full-time",
+                salaryMin: 140000,
+                salaryMax: 160000,
+                level: "Mid Level",
+                category: "Web Development · SaaS",
+                postedAt: "1 day ago",
+                description: "Join our team building the next generation of web applications with modern technologies like React, TypeScript, and Node.js.",
+                matchScore: 78,
+                founder: {
+                    name: "Sarah Johnson",
+                    bio: "CTO & Co-Founder at TechFlow"
+                }
+            }
+        ];
+
+        // Function to create job card HTML
+        function createJobCard(job) {
+            return `
+                <div class="shadow-md rounded-2xl border p-4 flex justify-between bg-white">
+                    <div class="flex gap-4 w-full">
+                        <img src="${job.logo}" alt="logo" class="w-12 h-12 rounded" />
+                        <div class="flex-1">
+                            <p class="text-sm text-green-600">${job.postedAt}</p>
+                            <h2 class="text-lg font-semibold text-orange-600">${job.title}</h2>
+                            <p class="text-gray-600 text-sm mb-2">${job.level}</p>
+                            <p class="text-gray-800 text-sm">
+                                ${job.location} · ${job.jobType} · $${job.salaryMin / 1000}K - $${job.salaryMax / 1000}K/yr
+                            </p>
+                            <p class="text-gray-500 text-xs">${job.category}</p>
+                            <p class="text-gray-700 text-sm mt-2 line-clamp-2">
+                                ${job.description}
+                            </p>
+                        </div>
+                        <div class="flex flex-col items-end gap-2 min-w-[160px]">
+                            <span class="font-semibold text-blue-600">${job.matchScore}% MATCH</span>
+                            <button class="px-4 py-2 rounded-lg font-medium transition-colors bg-orange-500 hover:bg-orange-600 w-full text-white" onclick="applyToJob(${job.id})">
+                                Apply Now
+                            </button>
+                            <div class="bg-blue-50 p-2 rounded-xl text-center w-full">
+                                <p class="text-sm font-medium">${job.founder.name}</p>
+                                <p class="text-xs text-gray-500">${job.founder.bio}</p>
+                                <button class="mt-2 px-4 py-2 rounded-lg font-medium transition-colors bg-orange-400 hover:bg-orange-500 w-full text-white">
+                                    Let's Chat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render all jobs
+        function renderJobs() {
+            const container = document.getElementById('jobs-container');
+            container.innerHTML = jobData.map(job => createJobCard(job)).join('');
+        }
+
+        // Function to handle job applications
+        function applyToJob(jobId) {
+            const button = event.target;
+            button.textContent = 'Applied';
+            button.disabled = true;
+            button.className = 'px-4 py-2 rounded-lg font-medium transition-colors bg-gray-400 w-full text-white cursor-not-allowed';
+        }
+
+        // Initialize the page
+        renderJobs();
+    </script>
 </body>
 </html>
