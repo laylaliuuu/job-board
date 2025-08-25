@@ -1,7 +1,7 @@
 # Job Board Database Schema Assessment
 
 ## Overview
-This assessment demonstrates a comprehensive database schema design for a job board platform, along with a functional frontend interface that displays job listings with match scores and application functionality.
+This assessment demonstrates a database schema design for a job board platform, along with a simple frontend interface that displays job listings.
 
 ## Database Schema Design
 
@@ -42,7 +42,7 @@ This assessment demonstrates a comprehensive database schema design for a job bo
 - **Key Design**: Separate chat sessions with threaded messaging
 - **Fields**: Timestamps for message tracking and chat history
 
-## Design Principles Applied
+## Design Decisions
 
 ### 1. **Normalization (3NF)**
 - Each table represents a single entity
@@ -52,7 +52,7 @@ This assessment demonstrates a comprehensive database schema design for a job bo
 ### 2. **Scalability & Extensibility**
 - Timestamp fields for audit trails
 - Flexible categorization fields
-- JSON-ready structure for future metadata
+- Structure ready for future features
 
 ### 3. **Performance Optimization**
 - Indexes on frequently queried fields
@@ -66,45 +66,14 @@ This assessment demonstrates a comprehensive database schema design for a job bo
 
 ## Frontend Implementation
 
-The frontend demonstrates:
-- **Job Display**: Shows all job details from the schema
-- **Application System**: Tracks applied jobs
-- **Match Scores**: Displays AI-generated match percentages
-- **Founder Information**: Shows company founder details
-- **Interactive Elements**: Apply buttons, chat functionality
-
-## How to Run
-
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Start the application**:
-   ```bash
-   npm start
-   ```
-
-3. **View the application**:
-   Open `http://localhost:3000` in your browser
-
-## Database Schema Visualization
-
-The complete DBML schema is available in `dbml/schema.dbml` and can be visualized using [dbdiagram.io](https://dbdiagram.io).
+The frontend displays:
+- Job cards with all details from the schema
+- Match scores and application functionality
+- Founder information and interactive elements
 
 ## Assessment Deliverables
 
 ✅ **DBML Schema**: Complete database schema with all required tables and relationships  
-✅ **Frontend Interface**: Working React component displaying job data  
-✅ **Design Documentation**: Comprehensive explanation of schema decisions  
-✅ **Runnable Application**: Complete project that can be executed  
-
-## Future Enhancements
-
-The schema is designed to support:
-- Advanced search and filtering
-- Recommendation algorithms
-- Analytics and reporting
-- Multi-language support
-- Advanced matching algorithms
-- Integration with external job boards
+✅ **Frontend Interface**: Simple interface displaying job data  
+✅ **Design Documentation**: Explanation of schema decisions  
+✅ **Working Application**: Frontend that can be viewed in any browser
