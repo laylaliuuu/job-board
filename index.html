@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board Assessment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4">Our Popular Jobs</h1>
+        <p class="text-gray-600 mb-6">Be one of the first 10 to apply</p>
+        
+        <div class="grid gap-4">
+            <!-- Job Card 1 -->
+            <div class="shadow-md rounded-2xl border p-4 flex justify-between bg-white">
+                <div class="flex gap-4 w-full">
+                    <img src="https://via.placeholder.com/40" alt="logo" class="w-12 h-12 rounded" />
+                    <div class="flex-1">
+                        <p class="text-sm text-green-600">2 hours ago</p>
+                        <h2 class="text-lg font-semibold text-orange-600">Product Designer</h2>
+                        <p class="text-gray-600 text-sm mb-2">New Grad, Entry Level</p>
+                        <p class="text-gray-800 text-sm">
+                            Remote - US · Full-time · $120K - $135K/yr
+                        </p>
+                        <p class="text-gray-500 text-xs">Architecture · E-Commerce</p>
+                        <p class="text-gray-700 text-sm mt-2 line-clamp-2">
+                            The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2 min-w-[160px]">
+                        <span class="font-semibold text-blue-600">85% MATCH</span>
+                        <button class="px-4 py-2 rounded-lg font-medium transition-colors bg-orange-500 hover:bg-orange-600 w-full text-white">
+                            Apply Now
+                        </button>
+                        <div class="bg-blue-50 p-2 rounded-xl text-center w-full">
+                            <p class="text-sm font-medium">Alex Chen</p>
+                            <p class="text-xs text-gray-500">Co-Founder & CEO at Hive Data</p>
+                            <button class="mt-2 px-4 py-2 rounded-lg font-medium transition-colors bg-orange-400 hover:bg-orange-500 w-full text-white">
+                                Let's Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="shadow-md rounded-2xl border p-4 flex justify-between bg-white">
+                <div class="flex gap-4 w-full">
+                    <img src="https://via.placeholder.com/40" alt="logo" class="w-12 h-12 rounded" />
+                    <div class="flex-1">
+                        <p class="text-sm text-green-600">2 hours ago</p>
+                        <h2 class="text-lg font-semibold text-orange-600">Product Designer</h2>
+                        <p class="text-gray-600 text-sm mb-2">New Grad, Entry Level</p>
+                        <p class="text-gray-800 text-sm">
+                            Remote - US · Full-time · $120K - $135K/yr
+                        </p>
+                        <p class="text-gray-500 text-xs">Architecture · E-Commerce</p>
+                        <p class="text-gray-700 text-sm mt-2 line-clamp-2">
+                            The Hive Data team plays a central role in enabling massive amounts of data to be labeled in an accurate, efficient, and scalable way.
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2 min-w-[160px]">
+                        <span class="font-semibold text-blue-600">92% MATCH</span>
+                        <button class="px-4 py-2 rounded-lg font-medium transition-colors bg-orange-500 hover:bg-orange-600 w-full text-white">
+                            Apply Now
+                        </button>
+                        <div class="bg-blue-50 p-2 rounded-xl text-center w-full">
+                            <p class="text-sm font-medium">Alex Chen</p>
+                            <p class="text-xs text-gray-500">Co-Founder & CEO at Hive Data</p>
+                            <button class="mt-2 px-4 py-2 rounded-lg font-medium transition-colors bg-orange-400 hover:bg-orange-500 w-full text-white">
+                                Let's Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
